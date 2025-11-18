@@ -1,0 +1,573 @@
+/* ===== SHARED STYLES ===== */
+.subscription-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.subscription-card.selected {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+}
+
+.subscription-card:hover {
+  border-color: var(--color-gray-300);
+  box-shadow: var(--shadow-md);
+}
+
+.card-selection {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.card-urgency-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  transition: all var(--transition-fast);
+}
+
+/* ===== GRID LAYOUT ===== */
+.subscription-card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto auto auto auto auto;
+  padding: var(--spacing-lg);
+  gap: var(--spacing-md);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.subscription-card-grid:hover {
+  transform: translateY(-2px);
+}
+
+.subscription-card-grid .card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.subscription-card-grid .service-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: var(--color-white);
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.subscription-card-grid .service-name {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-black);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.subscription-card-grid .card-metadata {
+  display: flex;
+  gap: var(--spacing-sm);
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.subscription-card-grid .category-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--color-gray-100);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--color-gray-700);
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.subscription-card-grid .card-cost {
+  grid-column: 1;
+  grid-row: 4;
+}
+
+.subscription-card-grid .cost-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-600);
+  font-weight: 500;
+  margin: 0 0 4px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.subscription-card-grid .cost-value {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-black);
+  margin: 0;
+}
+
+.subscription-card-grid .card-renewal {
+  grid-column: 1;
+  grid-row: 5;
+  padding: var(--spacing-md);
+  background: var(--color-gray-50);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-accent);
+}
+
+.subscription-card-grid .renewal-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-600);
+  margin: 0 0 4px 0;
+  font-weight: 500;
+}
+
+.subscription-card-grid .renewal-countdown {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-black);
+  margin: 0;
+}
+
+.subscription-card-grid .card-usage-dots {
+  display: flex;
+  gap: var(--spacing-xs);
+  grid-column: 1;
+  grid-row: 6;
+}
+
+.subscription-card-grid .usage-dot {
+  width: 32px;
+  height: 6px;
+  border-radius: var(--radius-sm);
+  background: var(--color-gray-200);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.subscription-card-grid .usage-dot.active {
+  background: var(--color-accent);
+  height: 8px;
+}
+
+.subscription-card-grid .usage-dot:hover {
+  transform: scaleY(1.5);
+}
+
+.subscription-card-grid .card-tags {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+  grid-column: 1;
+  grid-row: 7;
+}
+
+.subscription-card-grid .tag {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.tag-essential {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+
+.tag-unused {
+  background: rgba(244, 63, 94, 0.1);
+  color: #f43f5e;
+}
+
+.tag-family-shared {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.tag-trial {
+  background: rgba(168, 85, 247, 0.1);
+  color: #a855f7;
+}
+
+.subscription-card-grid .card-last-used {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-600);
+  margin: 0;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--color-gray-100);
+}
+
+.subscription-card-grid .card-quick-actions {
+  position: absolute;
+  bottom: var(--spacing-md);
+  right: var(--spacing-md);
+  display: flex;
+  gap: var(--spacing-xs);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: all var(--transition-fast);
+}
+
+.subscription-card-grid .card-quick-actions.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.quick-action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.quick-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quick-action-btn.action-use {
+  background: #10b981;
+  color: var(--color-white);
+}
+
+.quick-action-btn.action-use:hover:not(:disabled) {
+  background: #059669;
+  transform: scale(1.1);
+}
+
+.quick-action-btn.action-pause {
+  background: #f59e0b;
+  color: var(--color-white);
+}
+
+.quick-action-btn.action-pause:hover:not(:disabled) {
+  background: #d97706;
+  transform: scale(1.1);
+}
+
+.quick-action-btn.action-edit {
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+
+.quick-action-btn.action-edit:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+  transform: scale(1.1);
+}
+
+.quick-action-btn.action-cancel {
+  background: #ef4444;
+  color: var(--color-white);
+}
+
+.quick-action-btn.action-cancel:hover:not(:disabled) {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+/* ===== LIST LAYOUT ===== */
+.subscription-card-list {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  gap: var(--spacing-lg);
+  animation: slideUp 0.3s ease-out;
+}
+
+.subscription-card-list:hover {
+  background: var(--color-gray-50);
+}
+
+.subscription-card-list .card-checkbox {
+  flex-shrink: 0;
+}
+
+.subscription-card-list .selection-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.subscription-card-list .card-logo-section {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex: 1;
+  min-width: 200px;
+}
+
+.subscription-card-list .service-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--color-white);
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.subscription-card-list .service-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.subscription-card-list .service-name {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-black);
+  margin: 0;
+}
+
+.subscription-card-list .service-tags {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.subscription-card-list .service-tags .tag {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.subscription-card-list .card-cost-section,
+.subscription-card-list .card-renewal-section,
+.subscription-card-list .card-usage-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 120px;
+}
+
+.subscription-card-list .cost-label,
+.subscription-card-list .renewal-label,
+.subscription-card-list .usage-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-600);
+  font-weight: 500;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.subscription-card-list .cost-value {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-black);
+  margin: 0;
+}
+
+.subscription-card-list .renewal-date {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-black);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding-left: var(--spacing-sm);
+  border-left: 3px solid var(--color-gray-300);
+}
+
+.subscription-card-list .renewal-days {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-600);
+}
+
+.subscription-card-list .usage-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  margin: 0;
+  font-weight: 500;
+}
+
+.subscription-card-list .card-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all var(--transition-fast);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.subscription-card-list .card-actions.visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.subscription-card-list .action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subscription-card-list .action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.subscription-card-list .action-use {
+  background: #10b981;
+  color: white;
+}
+
+.subscription-card-list .action-use:hover:not(:disabled) {
+  background: #059669;
+  transform: scale(1.1);
+}
+
+.subscription-card-list .action-pause {
+  background: #f59e0b;
+  color: white;
+}
+
+.subscription-card-list .action-pause:hover:not(:disabled) {
+  background: #d97706;
+  transform: scale(1.1);
+}
+
+.subscription-card-list .action-edit {
+  background: var(--color-accent);
+  color: white;
+}
+
+.subscription-card-list .action-edit:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+  transform: scale(1.1);
+}
+
+.subscription-card-list .action-cancel {
+  background: #ef4444;
+  color: white;
+}
+
+.subscription-card-list .action-cancel:hover:not(:disabled) {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .subscription-card-list {
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+  }
+
+  .subscription-card-list .card-logo-section {
+    flex: 1 0 100%;
+  }
+
+  .subscription-card-list .card-cost-section,
+  .subscription-card-list .card-renewal-section,
+  .subscription-card-list .card-usage-section {
+    flex: 1 0 48%;
+  }
+
+  .subscription-card-list .card-actions {
+    flex: 1 0 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .subscription-card-grid {
+    padding: var(--spacing-md);
+    gap: var(--spacing-sm);
+  }
+
+  .subscription-card-grid .service-logo {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+
+  .subscription-card-grid .service-name {
+    font-size: var(--font-size-base);
+  }
+
+  .subscription-card-grid .cost-value {
+    font-size: var(--font-size-base);
+  }
+
+  .quick-action-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .subscription-card-list {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .subscription-card-list .card-cost-section,
+  .subscription-card-list .card-renewal-section,
+  .subscription-card-list .card-usage-section {
+    flex: 1 0 100%;
+    min-width: 100%;
+  }
+
+  .subscription-card-list .card-actions {
+    justify-content: space-between;
+  }
+
+  .subscription-card-list .action-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+}

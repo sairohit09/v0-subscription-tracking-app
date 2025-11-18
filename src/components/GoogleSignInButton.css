@@ -1,0 +1,40 @@
+.google-signin-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+.google-signin-wrapper > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.error-message {
+  padding: var(--spacing-md);
+  background-color: #fecaca;
+  color: #991b1b;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  border: 1px solid #fca5a5;
+  animation: slideIn 300ms ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.opacity-50 {
+  opacity: 0.5;
+  pointer-events: none;
+}
